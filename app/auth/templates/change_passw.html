@@ -1,0 +1,44 @@
+{% extends 'app.html' %}
+{% block content %}
+
+<div class="container">
+  <h2>Change Password</h2>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-success">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% endwith %}
+
+
+
+        <form action="/auth/reset_token" method="POST">
+            {{ form.hidden_tag() }}
+        <!-- Add a hidden input field for the token -->
+        <input type="hidden" name="token" value="{{ token }}">
+            <div class="form-group">
+                {{ form.password.label(for="password")}}
+                {{ form.password(id="password", class="form-control")}}
+        
+                {% if form.password.errors %}
+                    <ul>
+                        {% for error in form.password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        
+            
+        
+            {{ form.submit(class="btn btn-dark mt-4")}}
+        </form>        
+</div>
+
+{% endblock %}
